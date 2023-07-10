@@ -1,6 +1,6 @@
 const data = [{
     'nama' : 'Podo',
-    'status' : 'Menikah',
+    'status' : 'Cerai',
     'anak' : [
         {
             'namaAnak': 'anak pertama',
@@ -17,20 +17,34 @@ const data = [{
     ]
 }]
 
+const tunjanganAnak = 1000000
+const tahun = new Date().getFullYear()
+let jumlahAnak = 0
+let totalTunjangan = 0
+
 for (let i = 0; i<data.length; i++){
     if (data[i].status === 'Menikah'){
-        let tunjangan = 2000000
-        let tunjanganAnak = 1000000
-        for (let j = 0 ; j < data[i].anak.length ; j ++){
-            let tahun = new Date().getFullYear()
-            let umur = new Date(data[i].anak[j].tanggalLahir).getFullYear()
-            let umurAnak = tahun-umur
-            if(umurAnak <= 24) {
-                console.log(`yang berhak mendapatkan tunjangan Anak adalah ${data[i].anak[j].namaAnak}`);
+        let tunjanganIstri = 2000000
+        for (let j = 0 ; j < data[i].anak.length ; j ++){            
+            const umur = new Date(data[i].anak[j].tanggalLahir).getFullYear()
+            const umurAnak = tahun-umur
+            if(umurAnak <= 24 && jumlahAnak < 2) {
+                jumlahAnak += 1
             }
         }
+        totalTunjangan = tunjanganIstri + (tunjanganAnak*jumlahAnak)
     }
     else{
-        console.log('Belum Menikah');
+            for (let j = 0 ; j < data[i].anak.length ; j ++){            
+            const umur = new Date(data[i].anak[j].tanggalLahir).getFullYear()
+            const umurAnak = tahun-umur
+            if(umurAnak <= 24 && jumlahAnak < 2) {
+                jumlahAnak += 1
+            }
+        }
+        totalTunjangan = tunjanganAnak*jumlahAnak
     }
 }
+
+
+console.log(`jumlah tunjangan yang diberikan adalah ${totalTunjangan}`);
