@@ -21,8 +21,18 @@ for (let i = 0; i<data.length; i++){
     if (data[i].status === 'Menikah'){
         let tunjangan = 2000000
         let tunjanganAnak = 1000000
-        console.log(data[i].anak);
-        
+        // console.log(data[i].anak);
+        for (let j = 0 ; j < data[i].anak.length ; j ++){
+            // console.log(data[i].anak[j]);
+            let tahun = new Date().getFullYear()
+            let umur = new Date(data[i].anak[j].tanggalLahir).getFullYear()
+            // console.log(umur);
+            let umurAnak = tahun-umur
+            // console.log(umurAnak);
+            if(umurAnak <= 24) {
+                console.log('nanti lagi dah wkwkwkwk');
+            }
+        }
     }
     else{
         console.log('Belum Menikah');
