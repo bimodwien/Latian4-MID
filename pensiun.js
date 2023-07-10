@@ -1,6 +1,6 @@
 const data = [{
     'nama' : 'Podo',
-    'status' : 'Cerai',
+    'status' : 'Menikah',
     'anak' : [
         {
             'namaAnak': 'anak pertama',
@@ -19,31 +19,22 @@ const data = [{
 
 const tunjanganAnak = 1000000
 const tahun = new Date().getFullYear()
-let jumlahAnak = 0
+let jumlahAnakYangTercover = 0
 let totalTunjangan = 0
 
 for (let i = 0; i<data.length; i++){
-    if (data[i].status === 'Menikah'){
-        let tunjanganIstri = 2000000
-        for (let j = 0 ; j < data[i].anak.length ; j ++){            
-            const umur = new Date(data[i].anak[j].tanggalLahir).getFullYear()
+    const karyawan = data[i]
+        let tunjanganIstri = karyawan.status === 'Menikah' ? 2000000 : 0
+
+        // untuk menghitung jumlah anak yang tercover
+        for (let j = 0 ; j < karyawan.anak.length ; j ++){            
+            const umur = new Date(karyawan.anak[j].tanggalLahir).getFullYear()
             const umurAnak = tahun-umur
-            if(umurAnak <= 24 && jumlahAnak < 2) {
-                jumlahAnak += 1
+            if(umurAnak <= 24 && jumlahAnakYangTercover < 2) {
+                jumlahAnakYangTercover += 1
             }
         }
-        totalTunjangan = tunjanganIstri + (tunjanganAnak*jumlahAnak)
-    }
-    else{
-            for (let j = 0 ; j < data[i].anak.length ; j ++){            
-            const umur = new Date(data[i].anak[j].tanggalLahir).getFullYear()
-            const umurAnak = tahun-umur
-            if(umurAnak <= 24 && jumlahAnak < 2) {
-                jumlahAnak += 1
-            }
-        }
-        totalTunjangan = tunjanganAnak*jumlahAnak
-    }
+        totalTunjangan = tunjanganIstri + (tunjanganAnak * jumlahAnakYangTercover)
 }
 
 
